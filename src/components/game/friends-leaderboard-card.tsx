@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { LeaderboardTable, type EnrichedPlayerScore } from './leaderboard-table';
-import { Users, UserPlus, PlusCircle } from 'lucide-react';
+import { Users, PlusCircle } from 'lucide-react';
 import type { Language } from '@/contexts/language-context';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,27 +24,27 @@ interface FriendsLeaderboardCardProps {
 
 const TEXTS = {
   title: { es: "Puntuaciones de Amigos", en: "Friends Scores", fr: "Scores des Amis", pt: "Pontuações de Amigos" },
-  description: { 
-    es: "Compite con tus amigos y mira quién lidera.", 
-    en: "Compete with your friends and see who's leading.", 
-    fr: "Rivalisez avec vos amis et voyez qui mène.", 
-    pt: "Compita com seus amigos e veja quem está liderando." 
+  description: {
+    es: "Compite con tus amigos y mira quién lidera.",
+    en: "Compete with your friends and see who's leading.",
+    fr: "Rivalisez avec vos amis et voyez qui mène.",
+    pt: "Compita com seus amigos e veja quem está liderando."
   },
-  addFriendSectionTitle: { es: "Añadir Nuevo Amigo", en: "Add New Friend", fr: "Ajouter un Nouvel Ami", pt: "Adicionar Novo Amigo"},
-  addFriendInputLabel: { es: "Nombre o Email del Amigo:", en: "Friend's Name or Email:", fr: "Nom ou Email de l'Ami :", pt: "Nome ou Email do Amigo:"},
-  addFriendInputPlaceholder: { es: "Ej: Juan Pérez o juan@ejemplo.com", en: "Ex: John Doe or john@example.com", fr: "Ex : Jean Dupont ou jean@example.com", pt: "Ex: João Silva ou joao@exemplo.com"},
+  addFriendSectionTitle: { es: "Añadir Nuevo Amigo", en: "Add New Friend", fr: "Ajouter un Nouvel Ami", pt: "Adicionar Novo Amigo" },
+  addFriendInputLabel: { es: "Nombre o Email del Amigo:", en: "Friend's Name or Email:", fr: "Nom ou Email de l'Ami :", pt: "Nome ou Email do Amigo:" },
+  addFriendInputPlaceholder: { es: "Ej: Juan Pérez o juan@ejemplo.com", en: "Ex: John Doe or john@example.com", fr: "Ex : Jean Dupont ou jean@example.com", pt: "Ex: João Silva ou joao@exemplo.com" },
   addFriendButton: { es: "Añadir Amigo", en: "Add Friend", fr: "Ajouter un Ami", pt: "Adicionar Amigo" },
-  comingSoon: { 
-    es: "Añade amigos manualmente abajo o desde la tabla global.", 
-    en: "Add friends manually below or from the global leaderboard.", 
-    fr: "Ajoutez des amis manuellement ci-dessous ou depuis le classement mondial.", 
-    pt: "Adicione amigos manualmente abaixo ou do placar global." 
+  comingSoon: {
+    es: "Añade amigos manualmente abajo o desde la tabla global.",
+    en: "Add friends manually below or from the global leaderboard.",
+    fr: "Ajoutez des amis manuellement ci-dessous ou depuis le classement mondial.",
+    pt: "Adicione amigos manualmente abaixo ou do placar global."
   },
 };
 
-export function FriendsLeaderboardCard({ 
-  leaderboardData, 
-  className, 
+export function FriendsLeaderboardCard({
+  leaderboardData,
+  className,
   language,
   currentUserId,
   onChallenge,
@@ -72,7 +72,7 @@ export function FriendsLeaderboardCard({
       onAddFriendManual(newFriendIdentifier.trim());
     } else {
       // Si se encuentra, añadir relación en tabla friends
-      const { error: friendError } = await supabase
+      await supabase
         .from('friends')
         .insert({
           user_id: currentUserId,
@@ -101,8 +101,8 @@ export function FriendsLeaderboardCard({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <LeaderboardTable 
-          scores={leaderboardData} 
+        <LeaderboardTable
+          scores={leaderboardData}
           language={language}
           currentUserId={currentUserId}
           onChallenge={onChallenge}
@@ -113,10 +113,10 @@ export function FriendsLeaderboardCard({
         <div>
           <h4 className="text-md font-semibold text-secondary">{translate('addFriendSectionTitle')}</h4>
           <div className="flex w-full max-w-sm items-center space-x-2 mt-2">
-            <Input 
-              type="text" 
+            <Input
+              type="text"
               id="manual-friend-identifier"
-              placeholder={translate('addFriendInputPlaceholder')} 
+              placeholder={translate('addFriendInputPlaceholder')}
               value={newFriendIdentifier}
               onChange={(e) => setNewFriendIdentifier(e.target.value)}
               className="flex-grow"

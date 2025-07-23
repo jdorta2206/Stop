@@ -1,12 +1,22 @@
 "use client";
 
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { AlertTriangle } from 'lucide-react';
 import type { Language } from '@/contexts/language-context';
+
+interface RoundResults {
+  [category: string]: {
+    playerScore: number;
+    aiScore: number;
+    playerResponse: string;
+    aiResponse: string;
+    playerResponseIsValid?: boolean;
+    playerResponseErrorReason?: 'format' | 'invalid_word' | 'api_error' | null;
+  };
+}
 
 interface GameAreaProps {
   letter: string | null;
@@ -18,20 +28,7 @@ interface GameAreaProps {
   roundResults: RoundResults | null;
   language: Language;
   gameMode: "solo" | "room";
-  isHost?: boolean;
   localPlayerSubmitted?: boolean;
-  currentUserId?: string | null;
-}
-
-interface RoundResults {
-  [category: string]: {
-    playerScore: number;
-    aiScore: number;
-    playerResponse: string;
-    aiResponse: string;
-    playerResponseIsValid?: boolean;
-    playerResponseErrorReason?: 'format' | 'invalid_word' | 'api_error' | null;
-  };
 }
 
 const GAME_AREA_TEXTS = {
@@ -115,9 +112,7 @@ export function GameArea({
   roundResults,
   language,
   gameMode,
-  isHost,
   localPlayerSubmitted,
-  currentUserId,
 }: GameAreaProps) {
   if (!letter) return null;
 
@@ -127,7 +122,7 @@ export function GameArea({
     return dynamicPart ? `${baseText} ${dynamicPart}` : baseText;
   };
 
-  const getInvalidReasonText = (reason: RoundResults[string]['playerResponseErrorReason']) => {
+  const getInvalidReasonText = (reason: 'format' | 'invalid_word' | 'api_error' | null | undefined) => {
     if (reason === 'format') return translate('errorFormat');
     if (reason === 'invalid_word') return translate('errorInvalidWord');
     if (reason === 'api_error') return translate('errorApi');
@@ -191,7 +186,7 @@ export function GameArea({
                         )}
                       </p>
                       <Badge
-                        variant={roundResults[category].playerScore > 0 ? 
+                        variant={roundResults[category].playerScore > 0 ?
                           (roundResults[category].playerScore === 50 ? "secondary" : "default") : "outline"}
                         className="text-sm ml-2 shrink-0"
                       >
@@ -207,7 +202,7 @@ export function GameArea({
                         )}
                       </p>
                       <Badge
-                        variant={roundResults[category].aiScore > 0 ? 
+                        variant={roundResults[category].aiScore > 0 ?
                           (roundResults[category].aiScore === 50 ? "secondary" : "default") : "outline"}
                         className="text-sm ml-2 shrink-0"
                       >

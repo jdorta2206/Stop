@@ -1,6 +1,4 @@
 // src/constants/ui-texts.ts
-import type { Language } from '@/contexts/language-context';
-
 export const UI_TEXTS = {
   // Textos generales
   common: {
