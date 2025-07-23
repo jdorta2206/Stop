@@ -1,59 +1,66 @@
-"use client";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { createContext, useContext, useEffect, useState } from "react";
-import type { Session } from "@supabase/auth-helpers-nextjs"; // Cambiado aquí
+"use client"
+
+import type React from "react"
+
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createContext, useContext, useEffect, useState } from "react"
+import type { Session } from "@supabase/auth-helpers-nextjs"
 
 interface User {
-    id: string;
-    email: string;
+    id: string
+    email: string
 }
 
 type AuthContextType = {
-    user: User | null;
-    signIn: (email: string, password: string) => Promise<void>;
-    signOut: () => Promise<void>;
-};
+    user: User | null
+    signIn: (email: string, password: string) => Promise<void>
+    signOut: () => Promise<void>
+}
 
-const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextType | null>(null)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const supabase = createClientComponentClient();
-    const [user, setUser] = useState<User | null>(null);
+    const supabase = createClientComponentClient()
+    const [user, setUser] = useState<User | null>(null)
 
     useEffect(() => {
-        const { data: { subscription } } = supabase.auth.onAuthStateChange(
-            (event: string, session: Session | null) => {
-                setUser(session?.user ?? null);
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((event: string, session: Session | null) => {
+            // Convertir el User de Supabase a nuestro tipo User
+            if (session?.user && session.user.email) {
+                setUser({
+                    id: session.user.id,
+                    email: session.user.email,
+                })
+            } else {
+                setUser(null)
             }
-        );
+        })
 
-        return () => subscription.unsubscribe();
-    }, [supabase.auth]);
+        return () => subscription.unsubscribe()
+    }, [supabase.auth])
 
     const signIn = async (email: string, password: string) => {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) {
-            console.error("Error al iniciar sesión:", error);
-            throw error;
+            console.error("Error al iniciar sesión:", error)
+            throw error
         }
-    };
+    }
 
     const signOut = async () => {
-        const { error } = await supabase.auth.signOut();
-        if (error) console.error("Error al cerrar sesión:", error);
-    };
+        const { error } = await supabase.auth.signOut()
+        if (error) console.error("Error al cerrar sesión:", error)
+    }
 
-    return (
-        <AuthContext.Provider value={{ user, signIn, signOut }}>
-            {children}
-        </AuthContext.Provider>
-    );
-};
+    return <AuthContext.Provider value={{ user, signIn, signOut }}>{children}</AuthContext.Provider>
+}
 
 export const useAuth = () => {
-    const context = useContext(AuthContext);
+    const context = useContext(AuthContext)
     if (!context) {
-        throw new Error("useAuth debe usarse dentro de AuthProvider");
+        throw new Error("useAuth debe usarse dentro de AuthProvider")
     }
-    return context;
-};
+    return context
+}

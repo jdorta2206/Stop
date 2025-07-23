@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --background: hsl(1, 56%, 51%);
   --foreground: hsl(40, 62%, 87%);
@@ -69,12 +73,12 @@
   --chart-5: hsl(340, 75%, 55%);
 }
 
-/* Estilos base */
-* {
-  border-color: var(--border);
-}
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-body {
-  background-color: var(--background);
-  color: var(--foreground);
+  body {
+    @apply bg-background text-foreground;
+  }
 }
