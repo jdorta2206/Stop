@@ -144,21 +144,21 @@ export function GameArea({
   const allowInput = gameMode === "solo" || (gameMode === "room" && !localPlayerSubmitted && !showResults && !isEvaluating);
 
   return (
-    <Card className="w-full shadow-lg bg-card rounded-lg">
-      <CardHeader className="text-center">
-        <CardTitle className="text-4xl font-bold">
-          <span className="text-muted-foreground">{translate('letterLabel')} </span>
-          <span className="text-accent tracking-wider">{letter}</span>
+    <Card className="w-full shadow-lg bg-white/95 backdrop-blur-sm border-white/50 rounded-xl">
+      <CardHeader className="text-center bg-white/80 rounded-t-xl">
+        <CardTitle className="text-3xl font-bold text-red-600">
+          <span className="text-red-400">{translate('letterLabel')} </span>
+          <span className="text-red-600 tracking-wider text-4xl">{letter}</span>
         </CardTitle>
-        <CardDescription className="mt-1 text-md">{getCardDescription()}</CardDescription>
+        <CardDescription className="mt-1 text-md text-red-700">{getCardDescription()}</CardDescription>
       </CardHeader>
 
       {allowInput && (
-        <CardContent className="space-y-6 p-6">
+        <CardContent className="space-y-4 p-6">
           {categories.map((category, index) => (
             <div key={category}>
               <div className="space-y-2">
-                <label htmlFor={`${category}-${gameMode}`} className="text-xl font-semibold text-primary">
+                <label htmlFor={`${category}-${gameMode}`} className="text-lg font-semibold text-gray-800 block">
                   {category}
                 </label>
                 <Input
@@ -167,19 +167,19 @@ export function GameArea({
                   onChange={(e) => onInputChange(category, e.target.value)}
                   placeholder={`${translate('inputPlaceholder')} ${category} ${language === 'es' ? 'con' : 'with'} ${letter}...`}
                   disabled={isEvaluating || showResults || (gameMode === "room" && localPlayerSubmitted)}
-                  className="text-lg py-3 px-4 border-2 focus:border-primary focus:ring-primary"
+                  className="text-lg py-3 px-4 border-2 border-gray-300 focus:border-red-500 focus:ring-red-500 bg-white rounded-lg"
                   aria-label={`${language === 'es' ? 'Entrada para la categoría' : 'Input for category'} ${category}`}
                 />
                 {gameMode === "solo" && showResults && roundResults?.[category] && (
-                  <div className="mt-3 p-4 bg-secondary rounded-md shadow-sm space-y-2">
+                  <div className="mt-3 p-4 bg-gray-50 rounded-md shadow-sm space-y-2">
                     <div className="flex justify-between items-center">
                       <p className="text-md flex-grow">
-                        <span className="font-semibold text-primary">{translate('youLabel')} </span>
+                        <span className="font-semibold text-red-600">{translate('youLabel')} </span>
                         {roundResults[category].playerResponse || (
-                          <span className="italic text-muted-foreground">{translate('noResponsePlayer')}</span>
+                          <span className="italic text-gray-500">{translate('noResponsePlayer')}</span>
                         )}
                         {roundResults[category].playerResponse && roundResults[category].playerResponseIsValid === false && (
-                          <span className="ml-2 text-xs text-destructive inline-flex items-center">
+                          <span className="ml-2 text-xs text-red-600 inline-flex items-center">
                             <AlertTriangle className="h-3 w-3 mr-1" />
                             {getInvalidReasonText(roundResults[category].playerResponseErrorReason)}
                           </span>
@@ -188,23 +188,23 @@ export function GameArea({
                       <Badge
                         variant={roundResults[category].playerScore > 0 ?
                           (roundResults[category].playerScore === 50 ? "secondary" : "default") : "outline"}
-                        className="text-sm ml-2 shrink-0"
+                        className="text-sm ml-2 shrink-0 bg-red-100 text-red-700 border-red-300"
                       >
                         {roundResults[category].playerScore} {translate('pointsSuffix')}
                       </Badge>
                     </div>
-                    <Separator />
+                    <Separator className="bg-gray-300" />
                     <div className="flex justify-between items-center">
                       <p className="text-md flex-grow">
-                        <span className="font-semibold text-accent-foreground">{translate('aiLabel')} </span>
+                        <span className="font-semibold text-blue-600">{translate('aiLabel')} </span>
                         {roundResults[category].aiResponse || (
-                          <span className="italic text-muted-foreground">{translate('noResponseAI')}</span>
+                          <span className="italic text-gray-500">{translate('noResponseAI')}</span>
                         )}
                       </p>
                       <Badge
                         variant={roundResults[category].aiScore > 0 ?
                           (roundResults[category].aiScore === 50 ? "secondary" : "default") : "outline"}
-                        className="text-sm ml-2 shrink-0"
+                        className="text-sm ml-2 shrink-0 bg-blue-100 text-blue-700 border-blue-300"
                       >
                         {roundResults[category].aiScore} {translate('pointsSuffix')}
                       </Badge>
@@ -212,7 +212,7 @@ export function GameArea({
                   </div>
                 )}
               </div>
-              {index < categories.length - 1 && <div className="border-t my-6" />}
+              {index < categories.length - 1 && <div className="border-t border-gray-200 my-4" />}
             </div>
           ))}
         </CardContent>
