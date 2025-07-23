@@ -1,15 +1,14 @@
-import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { LanguageProvider } from "@/contexts/language-context"
+import { AuthProvider } from "@/contexts/auth-context"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Juego Stop - Multijugador Online | Contra IA y Amigos",
-  description:
-    "¡Juega al clásico juego Stop, multilenguaje, contra la IA o amigos! Demuestra tu vocabulario en categorías como países, animales, nombres y más.",
+  description: "¡Juega al clásico juego Stop, multilenguaje, contra la IA o amigos! Demuestra tu vocabulario en categorías como países, animales, nombres y más.",
   keywords: "stop, juego de palabras, multijugador, online, IA, categorías, vocabulario, competir, multilenguaje",
   authors: [{ name: "Stop Game Team" }],
   creator: "Stop Game",
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://tu-dominio.vercel.app"), // Cambia por tu dominio
+  metadataBase: new URL("https://tu-dominio.vercel.app"),
   alternates: {
     canonical: "/",
     languages: {
@@ -63,7 +62,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "tu-codigo-google-verification", // Opcional
+    google: "tu-codigo-google-verification",
   },
 }
 
@@ -87,7 +86,11 @@ export default function RootLayout({
         <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
       </head>
       <body className={inter.className}>
-        <LanguageProvider>{children}</LanguageProvider>
+        <AuthProvider>
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
+        </AuthProvider>
       </body>
     </html>
   )
