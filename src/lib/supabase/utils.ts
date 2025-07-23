@@ -17,19 +17,6 @@ export type User = {
   created_at: string;
 };
 
-// Tipo para los datos raw que devuelve Supabase
-type HighScoreRaw = {
-  user_id: string;
-  score: number;
-  users: {
-    username: string;
-    avatar_url?: string;
-  }[] | {
-    username: string;
-    avatar_url?: string;
-  } | null;
-};
-
 // Tipo final limpio para usar en tu aplicación
 export type HighScore = {
   user_id: string;
@@ -359,7 +346,7 @@ export const UtilService = {
   // Verificar conexión a Supabase
   async testConnection(): Promise<boolean> {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('users')
         .select('count')
         .limit(1);

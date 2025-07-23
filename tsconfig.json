@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "module": "esnext",
     "moduleResolution": "bundler",
     "baseUrl": ".",
@@ -16,15 +20,34 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@supabase/*": ["./src/lib/supabase/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@supabase/*": [
+        "./src/lib/supabase/*"
+      ]
     },
     "plugins": [
       {
         "name": "next"
       }
     ],
-    "types": ["@supabase/supabase-js", "next"]
+    "types": [
+      "next",
+      "node"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true
   },
   "include": [
     "next-env.d.ts",
@@ -34,5 +57,7 @@
     "**/*.jsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

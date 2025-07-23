@@ -1,7 +1,8 @@
-"use client"
-import { useRouter } from "next/navigation"
-import { Play, Users, Share2, Trophy, Target, Star, MessageCircle, User } from 'lucide-react'
-import { useLanguage } from "@/contexts/language-context"
+"use client";
+import { useRouter } from "next/navigation";
+import { Play, Users, Share2, Trophy, Target, Star, MessageCircle } from 'lucide-react'; // Eliminado User no utilizado
+import { useLanguage } from "@/contexts/language-context";
+import { AuthStatus } from "@/components/auth/auth-status";
 
 const translations = {
   es: {
@@ -96,7 +97,7 @@ const translations = {
   },
   pt: {
     title: "Jogue Stop Online!",
-    subtitle: "O jogo de palabras mais divertido para jogar com amigos",
+    subtitle: "O jogo de palavras mais divertido para jogar com amigos",
     description: "Jogue o clássico jogo Stop, multilíngue, contra a IA ou amigos!",
     playButton: "Jogar Agora!",
     playWithFriends: "Jogar com Amigos",
@@ -124,40 +125,36 @@ const translations = {
     shareText: "Venha jogar Stop comigo! 🎮",
     loginButton: "Entrar"
   },
-}
+};
 
 export default function StopGameLanding() {
-  const router = useRouter()
-  const { language, setLanguage } = useLanguage()
-  const t = translations[language as keyof typeof translations] || translations.es
+  const router = useRouter();
+  const { language, setLanguage } = useLanguage();
+  const t = translations[language as keyof typeof translations] || translations.es;
 
   const features = [
     { icon: Users, title: t.multiplayerTitle, description: t.multiplayerDesc },
     { icon: Target, title: t.fastTitle, description: t.fastDesc },
     { icon: Trophy, title: t.competitiveTitle, description: t.competitiveDesc },
     { icon: Star, title: t.aiTitle, description: t.aiDesc },
-  ]
+  ];
 
   const handlePlayNow = () => {
-    const playerId = `player_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-    const playerName = `Jugador_${Math.floor(Math.random() * 1000)}`
-    router.push(`/challenge-setup/${playerId}?name=${encodeURIComponent(playerName)}`)
-  }
+    const playerId = `player_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const playerName = `Jugador_${Math.floor(Math.random() * 1000)}`;
+    router.push(`/challenge-setup/${playerId}?name=${encodeURIComponent(playerName)}`);
+  };
 
   const handlePlayWithFriends = () => {
-    router.push("/room/create")
-  }
+    router.push("/room/create");
+  };
 
   const shareOnWhatsApp = () => {
-    const text = t.shareText
-    const url = window.location.href
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + "\n" + url)}`
-    window.open(whatsappUrl, "_blank")
-  }
-
-  const handleLogin = () => {
-    router.push("/auth") // Ajusta esta ruta según tu configuración de autenticación
-  }
+    const text = t.shareText;
+    const url = window.location.href;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + "\n" + url)}`;
+    window.open(whatsappUrl, "_blank");
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-500 via-red-600 to-red-700">
@@ -169,7 +166,7 @@ export default function StopGameLanding() {
               <img
                 src="/logo.png"
                 alt="Stop Logo"
-                className="w-full h-full object-cover" // Logo ajustado perfectamente al círculo
+                className="w-full h-full object-cover"
               />
             </div>
             <h1 className="text-2xl font-bold text-white">STOP</h1>
@@ -189,21 +186,7 @@ export default function StopGameLanding() {
               ))}
             </div>
 
-            {/* Botón de inicio de sesión */}
-            <button
-              onClick={handleLogin}
-              className="bg-white/90 text-red-600 px-4 py-2 rounded-full font-medium hover:bg-white transition-all hidden sm:block"
-            >
-              {t.loginButton}
-            </button>
-
-            {/* Versión móvil (icono) */}
-            <button
-              onClick={handleLogin}
-              className="sm:hidden p-2 rounded-full bg-white/20"
-            >
-              <User className="w-5 h-5 text-white" />
-            </button>
+            <AuthStatus />
           </div>
         </div>
       </header>
@@ -331,10 +314,10 @@ export default function StopGameLanding() {
             {language === "es" && "© 2024 Juego Stop. Todos los derechos reservados."}
             {language === "en" && "© 2024 Stop Game. All rights reserved."}
             {language === "fr" && "© 2024 Jeu Stop. Tous droits réservés."}
-            {language === "pt" && "© 2024 Jogo Stop. Todos os direitos reservados."}
+            {language === "pt" && "© 2024 Jogo Stop. Todos os derechos reservados."}
           </p>
         </div>
       </footer>
     </div>
-  )
+  );
 }
