@@ -1,6 +1,6 @@
 "use client"
 import { useRouter } from "next/navigation"
-import { Play, Users, Share2, Trophy, Target, Star, MessageCircle } from 'lucide-react'
+import { Play, Users, Share2, Trophy, Target, Star, MessageCircle, User } from 'lucide-react'
 import { useLanguage } from "@/contexts/language-context"
 
 const translations = {
@@ -32,6 +32,7 @@ const translations = {
     categoryList: ["País", "Animal", "Nombre", "Apellido", "Color", "Comida", "Objeto", "Profesión"],
     readyToPlay: "¿Listo para jugar?",
     shareText: "¡Ven a jugar Stop conmigo! 🎮 El juego de palabras más divertido.",
+    loginButton: "Iniciar sesión"
   },
   en: {
     title: "Play Stop Online!",
@@ -61,6 +62,7 @@ const translations = {
     categoryList: ["Country", "Animal", "Name", "Surname", "Color", "Food", "Object", "Profession"],
     readyToPlay: "Ready to play?",
     shareText: "Come play Stop with me! 🎮 The most fun word game.",
+    loginButton: "Log in"
   },
   fr: {
     title: "Jouez à Stop en ligne !",
@@ -90,10 +92,11 @@ const translations = {
     categoryList: ["Pays", "Animal", "Prénom", "Nom", "Couleur", "Nourriture", "Objet", "Profession"],
     readyToPlay: "Prêt à jouer ?",
     shareText: "Venez jouer à Stop avec moi ! 🎮",
+    loginButton: "Connexion"
   },
   pt: {
     title: "Jogue Stop Online!",
-    subtitle: "O jogo de palavras mais divertido para jogar com amigos",
+    subtitle: "O jogo de palabras mais divertido para jogar com amigos",
     description: "Jogue o clássico jogo Stop, multilíngue, contra a IA ou amigos!",
     playButton: "Jogar Agora!",
     playWithFriends: "Jogar com Amigos",
@@ -119,6 +122,7 @@ const translations = {
     categoryList: ["País", "Animal", "Nome", "Sobrenome", "Cor", "Comida", "Objeto", "Profissão"],
     readyToPlay: "Pronto para jogar?",
     shareText: "Venha jogar Stop comigo! 🎮",
+    loginButton: "Entrar"
   },
 }
 
@@ -151,14 +155,22 @@ export default function StopGameLanding() {
     window.open(whatsappUrl, "_blank")
   }
 
+  const handleLogin = () => {
+    router.push("/auth") // Ajusta esta ruta según tu configuración de autenticación
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-500 via-red-600 to-red-700">
-      {/* Header */}
+      {/* Header con logo y botón de login */}
       <header className="bg-white/10 backdrop-blur-sm border-b border-white/20">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg overflow-hidden">
-              <img src="/logo.png" alt="Stop Logo" className="w-8 h-8 object-contain" />
+              <img
+                src="/logo.png"
+                alt="Stop Logo"
+                className="w-full h-full object-cover" // Logo ajustado perfectamente al círculo
+              />
             </div>
             <h1 className="text-2xl font-bold text-white">STOP</h1>
           </div>
@@ -176,17 +188,39 @@ export default function StopGameLanding() {
                 </button>
               ))}
             </div>
+
+            {/* Botón de inicio de sesión */}
+            <button
+              onClick={handleLogin}
+              className="bg-white/90 text-red-600 px-4 py-2 rounded-full font-medium hover:bg-white transition-all hidden sm:block"
+            >
+              {t.loginButton}
+            </button>
+
+            {/* Versión móvil (icono) */}
+            <button
+              onClick={handleLogin}
+              className="sm:hidden p-2 rounded-full bg-white/20"
+            >
+              <User className="w-5 h-5 text-white" />
+            </button>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section con logo grande redondeado */}
       <section className="container mx-auto px-4 py-16 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Logo Principal */}
+          {/* Logo Principal - Versión redondeada perfecta */}
           <div className="mb-8">
-            <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-2xl mx-auto mb-6 overflow-hidden p-2">
-              <img src="/logo.png" alt="Stop Game Logo" className="w-28 h-28 object-contain rounded-2xl" />
+            <div className="w-40 h-40 mx-auto mb-6">
+              <div className="relative w-full h-full">
+                <img
+                  src="/logo.png"
+                  alt="Stop Game Logo"
+                  className="absolute w-full h-full object-cover rounded-full border-4 border-white shadow-2xl"
+                />
+              </div>
             </div>
           </div>
 
@@ -234,7 +268,7 @@ export default function StopGameLanding() {
         </div>
       </section>
 
-      {/* How to Play Section */}
+      {/* Resto del código se mantiene igual */}
       <section className="bg-white/10 backdrop-blur-sm py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-white text-center mb-12">{t.howToPlay}</h2>
@@ -253,7 +287,6 @@ export default function StopGameLanding() {
         </div>
       </section>
 
-      {/* Categories Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-white text-center mb-12">{t.categories}</h2>
@@ -270,7 +303,6 @@ export default function StopGameLanding() {
         </div>
       </section>
 
-      {/* CTA Final */}
       <section className="py-16 text-center">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-white mb-8">{t.readyToPlay}</h2>
@@ -293,7 +325,6 @@ export default function StopGameLanding() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-black/20 py-8">
         <div className="container mx-auto px-4 text-center">
           <p className="text-white/60">
