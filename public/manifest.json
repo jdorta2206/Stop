@@ -4,46 +4,21 @@
   "description": "¡Juega al clásico juego Stop, multilenguaje, contra la IA o amigos!",
   "icons": [
     {
-      "src": "/icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png"
-    },
-    {
       "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png"
-    },
-    {
       "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
     }
   ],
   "theme_color": "#29ABE2",
@@ -52,24 +27,14 @@
   "display": "standalone",
   "orientation": "portrait-primary",
   "scope": "/",
-  "categories": [
-    "game",
-    "education"
-  ],
+  "categories": ["game", "education"],
   "lang": "es",
   "dir": "ltr",
   "screenshots": [
     {
       "src": "/screenshots/screenshot1.webp",
       "sizes": "1280x720",
-      "type": "image/webp",
-      "form_factor": "wide"
-    },
-    {
-      "src": "/screenshots/screenshot2.webp",
-      "sizes": "750x1334",
-      "type": "image/webp",
-      "form_factor": "narrow"
+      "type": "image/webp"
     }
   ],
   "shortcuts": [
@@ -77,43 +42,19 @@
       "name": "Nuevo juego solo",
       "short_name": "Solo",
       "description": "Jugar contra la IA",
-      "url": "/single-player?source=pwa",
-      "icons": [
-        {
-          "src": "/icons/shortcut-solo.png",
-          "sizes": "96x96"
-        }
-      ]
+      "url": "/single-player"
     },
     {
       "name": "Multijugador",
       "short_name": "Multi",
       "description": "Jugar con amigos",
-      "url": "/multiplayer?source=pwa",
-      "icons": [
-        {
-          "src": "/icons/shortcut-multi.png",
-          "sizes": "96x96"
-        }
-      ]
+      "url": "/multiplayer"
     }
   ],
-  "share_target": {
-    "action": "/share",
-    "method": "GET",
-    "params": {
-      "title": "name",
-      "text": "description",
-      "url": "link"
-    }
-  },
-  "protocol_handlers": [
+  "related_applications": [
     {
-      "protocol": "web+stopgame",
-      "url": "/play?url=%s"
+      "platform": "webapp",
+      "url": "https://tudominio.com/manifest.json"
     }
-  ],
-  "edge_side_panel": {
-    "preferred_width": 400
-  }
+  ]
 }

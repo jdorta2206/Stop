@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { ReactNode } from 'react';
@@ -21,7 +22,7 @@ export interface LanguageContextType {
   language: Language;
   setLanguage: (language: Language) => void;
   translate: (textObject: Record<string, string> | undefined) => string;
-  commonTranslate: (key: string) => string;
+  commonTranslate: (key: string, replacements?: Record<string, string>) => string;
   currentLanguageOption: LanguageOption | undefined;
 }
 
@@ -52,28 +53,28 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (typeof document !== 'undefined') {
       document.documentElement.lang = lang;
     }
-  }, []);
+  }, []); // setLanguageState is stable
 
   const translate = useCallback(
     (textObject: Record<string, string> | undefined): string => {
       if (!textObject) return '';
+      // Try current language, then default, then English as a fallback, then first available
       return textObject[language] || textObject[defaultLanguage] || textObject['en'] || Object.values(textObject)[0] || '';
     },
-    [language]
+    [language] // translate changes only when language changes
   );
 
-  const commonTranslate = useCallback((key: string) => {
+  const commonTranslate = useCallback((key: string, replacements?: Record<string, string>) => {
+    // This implementation needs to be provided based on how commonTranslate works
     return key; // Placeholder implementation
   }, []);
-
   const currentLanguageOption = useMemo(() => {
     return LANGUAGES.find(l => l.code === language);
-  }, [language]);
+  }, [language]); // Memoize currentLanguageOption
 
   const contextValue = useMemo(() => {
     return { language, setLanguage, translate, commonTranslate, currentLanguageOption };
-  }, [language, setLanguage, translate, commonTranslate, currentLanguageOption]);
-
+  }, [language, setLanguage, translate, commonTranslate, currentLanguageOption]); // Memoize the entire context value
   return (
     <LanguageContext.Provider value={contextValue}>
       {children}
