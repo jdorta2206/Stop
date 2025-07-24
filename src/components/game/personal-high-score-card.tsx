@@ -6,6 +6,12 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 
+// Implementación local simple de toast
+const toast = {
+  success: (message: string) => console.log('Success:', message),
+  error: (message: string) => console.error('Error:', message)
+};
+
 interface PersonalHighScoreCardProps {
   className?: string;
   language: 'es' | 'en' | 'fr' | 'pt';
@@ -13,35 +19,35 @@ interface PersonalHighScoreCardProps {
 }
 
 const TEXTS = {
-  title: {
-    es: "Tu Récord Personal",
-    en: "Personal Best",
-    fr: "Votre Record",
-    pt: "Seu Recorde"
+  title: { 
+    es: "Tu Récord Personal", 
+    en: "Personal Best", 
+    fr: "Votre Record", 
+    pt: "Seu Recorde" 
   },
-  subtitle: {
-    es: (score: number) => `Puntuación actual: ${score}`,
-    en: (score: number) => `Current score: ${score}`,
-    fr: (score: number) => `Score actuel: ${score}`,
-    pt: (score: number) => `Pontuação atual: ${score}`
+  subtitle: { 
+    es: (score: number) => `Puntuación actual: ${score}`, 
+    en: (score: number) => `Current score: ${score}`, 
+    fr: (score: number) => `Score actuel: ${score}`, 
+    pt: (score: number) => `Pontuação atual: ${score}` 
   },
-  loading: {
-    es: "Cargando...",
-    en: "Loading...",
-    fr: "Chargement...",
-    pt: "Carregando..."
+  loading: { 
+    es: "Cargando...", 
+    en: "Loading...", 
+    fr: "Chargement...", 
+    pt: "Carregando..." 
   },
-  error: {
-    es: "Error al cargar datos",
-    en: "Error loading data",
-    fr: "Erreur de chargement",
-    pt: "Erro ao carregar"
+  error: { 
+    es: "Error al cargar datos", 
+    en: "Error loading data", 
+    fr: "Erreur de chargement", 
+    pt: "Erro ao carregar" 
   },
-  updateSuccess: {
-    es: "¡Nuevo récord!",
-    en: "New high score!",
-    fr: "Nouveau record !",
-    pt: "Novo recorde!"
+  updateSuccess: { 
+    es: "¡Nuevo récord!", 
+    en: "New high score!", 
+    fr: "Nouveau record !", 
+    pt: "Novo recorde!" 
   },
   shareSuccess: {
     es: "¡Puntuación compartida!",
@@ -57,10 +63,10 @@ const TEXTS = {
   }
 } as const;
 
-export function PersonalHighScoreCard({
-  className = "",
-  language = 'es',
-  userId
+export function PersonalHighScoreCard({ 
+  className = "", 
+  language = 'es', 
+  userId 
 }: PersonalHighScoreCardProps) {
   const [highScore, setHighScore] = useState<number>(0);
   const [currentScore, setCurrentScore] = useState<number>(0);
@@ -90,7 +96,7 @@ export function PersonalHighScoreCard({
       try {
         setIsLoading(true);
         setError(null);
-
+        
         const { data, error: queryError } = await supabase
           .from('player_stats')
           .select('high_score, current_score')
@@ -124,7 +130,7 @@ export function PersonalHighScoreCard({
         (payload: any) => {
           const newHigh = payload.new.high_score as number;
           const newCurrent = payload.new.current_score as number;
-
+          
           if (newHigh > highScore) {
             console.log(translate('updateSuccess'), translate('subtitle', newCurrent));
           }
@@ -199,9 +205,9 @@ export function PersonalHighScoreCard({
           {translate('title')}
         </CardTitle>
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="sm"
+          <Button 
+            variant="ghost" 
+            size="sm" 
             onClick={handleShare}
             className="text-xs h-6 px-2 hover:bg-primary/10"
           >
@@ -221,9 +227,9 @@ export function PersonalHighScoreCard({
           </div>
         </div>
         <div className="w-full bg-secondary rounded-full h-2 mt-3">
-          <div
-            className="bg-primary h-2 rounded-full transition-all duration-500"
-            style={{
+          <div 
+            className="bg-primary h-2 rounded-full transition-all duration-500" 
+            style={{ 
               width: `${Math.min(100, (currentScore / Math.max(highScore, 1)) * 100)}%`,
               maxWidth: '100%'
             }}

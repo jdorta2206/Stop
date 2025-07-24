@@ -33,14 +33,11 @@ export function ChatMessageItem({ message, currentUserUid }: ChatMessageItemProp
       )}
     >
       {!isSenderCurrentUser && (
-        <Avatar className="h-8 w-8 shrink-0">
-          {message.sender.avatar ? (
-            <AvatarImage src={message.sender.avatar} />
-          ) : null}
-          <AvatarFallback>
+        <div className="h-8 w-8 shrink-0 bg-gray-300 rounded-full flex items-center justify-center">
+          <span className="text-xs font-medium">
             {message.sender.name.charAt(0).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
+          </span>
+        </div>
       )}
       <div
         className={cn(
@@ -64,21 +61,18 @@ export function ChatMessageItem({ message, currentUserUid }: ChatMessageItemProp
           <p className="text-sm whitespace-pre-wrap">{message.text}</p>
         </div>
         <p className="text-xs text-muted-foreground/80">
-          {message.timestamp.toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit'
+          {message.timestamp.toLocaleTimeString([], { 
+            hour: '2-digit', 
+            minute: '2-digit' 
           })}
         </p>
       </div>
       {isSenderCurrentUser && (
-        <Avatar className="h-8 w-8 shrink-0 ml-3">
-          {message.sender.avatar ? (
-            <AvatarImage src={message.sender.avatar} />
-          ) : null}
-          <AvatarFallback>
+        <div className="h-8 w-8 shrink-0 ml-3 bg-gray-300 rounded-full flex items-center justify-center">
+          <span className="text-xs font-medium">
             {message.sender.name.charAt(0).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
+          </span>
+        </div>
       )}
     </div>
   );
