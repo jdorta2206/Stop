@@ -15,14 +15,14 @@ interface StopButtonProps {
   onClick: () => void | Promise<void>;  // Soporta async para Supabase
   disabled?: boolean;
   language: Language;
-  label?: string; 
+  label?: string;
 }
 
-export const StopButton: React.FC<StopButtonProps> = ({ 
-  onClick, 
-  disabled, 
-  language, 
-  label 
+export const StopButton: React.FC<StopButtonProps> = ({
+  onClick,
+  disabled,
+  language,
+  label
 }) => {
   const [isLoading, setIsLoading] = React.useState(false);
 
