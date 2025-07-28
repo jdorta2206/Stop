@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STOP Game - Sin conexión</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+    
+    .offline-container {
+      max-width: 400px;
+      width: 100%;
+    }
+    
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 2rem;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #dc2626;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+    
+    .offline-features {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+    }
+    
+    .offline-features h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    
+    .offline-features ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .offline-features li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .offline-features li:last-child {
+      border-bottom: none;
+    }
+    
+    .retry-button {
+      background: white;
+      color: #dc2626;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-right: 1rem;
+    }
+    
+    .retry-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .play-offline-button {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .play-offline-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .buttons {
+      margin-top: 2rem;
+    }
+    
+    @media (max-width: 480px) {
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .retry-button {
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <div class="logo">STOP</div>
+    <h1>Sin conexión</h1>
+    <p>No hay conexión a internet disponible. Pero puedes seguir jugando en modo offline con funciones limitadas.</p>
+    
+    <div class="offline-features">
+      <h3>🎮 Disponible sin conexión:</h3>
+      <ul>
+        <li>✅ Juego individual contra IA</li>
+        <li>✅ Todas las categorías</li>
+        <li>✅ Sistema de puntuación</li>
+        <li>✅ Guardado local de progreso</li>
+      </ul>
+    </div>
+    
+    <div class="buttons">
+      <button class="retry-button" onclick="checkConnection()">
+        Reintentar conexión
+      </button>
+      <button class="play-offline-button" onclick="playOffline()">
+        Jugar sin conexión
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function checkConnection() {
+      // Intentar recargar la página
+      window.location.reload();
+    }
+    
+    function playOffline() {
+      // Redirigir al juego en modo offline
+      localStorage.setItem('offline_mode', 'true');
+      window.location.href = '/gameplay?mode=offline';
+    }
+    
+    // Verificar conexión periódicamente
+    setInterval(() => {
+      if (navigator.onLine) {
+        // Si hay conexión, recargar automáticamente
+        window.location.reload();
+      }
+    }, 10000);
+    
+    // Mostrar estado de conexión
+    window.addEventListener('online', () => {
+      checkConnection();
+    });
+    
+    window.addEventListener('offline', () => {
+      console.log('Connection lost');
+    });
+  </script>
+</body>
+</html>

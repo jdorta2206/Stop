@@ -1,12 +1,21 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
   "style": "default",
+<<<<<<< HEAD
   "rsc": true,
   "tsx": true,
   "tailwind": {
     "config": "tailwind.config.ts",
     "css": "src/app/globals.css",
     "baseColor": "neutral",
+=======
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "src/index.css",
+    "baseColor": "slate",
+>>>>>>> 8405a82 (Actualización completa del juego STOP con nuevas funcionalidades)
     "cssVariables": true,
     "prefix": ""
   },
@@ -15,6 +24,7 @@
     "utils": "@/lib/utils",
     "ui": "@/components/ui",
     "lib": "@/lib",
+<<<<<<< HEAD
     "hooks": "@/hooks",
     "supabase": "@/lib/supabase"
   },
@@ -23,3 +33,8 @@
     "authRedirect": "/auth/callback"
   }
 }
+=======
+    "hooks": "@/hooks"
+  }
+}
+>>>>>>> 8405a82 (Actualización completa del juego STOP con nuevas funcionalidades)

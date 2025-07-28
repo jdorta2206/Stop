@@ -1,0 +1,3 @@
+# This file represents an alarm/stop sound effect
+# In production, this would be replaced with an actual MP3 file
+# For demo purposes, we'll use the Web Audio API to generate sounds

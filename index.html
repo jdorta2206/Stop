@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>STOP Game - Juego de Palabras</title>
+  <meta name="description" content="Juego de palabras multijugador en tiempo real. Juega STOP con amigos online y offline." />
+  <meta name="author" content="STOP Game Team" />
+  <meta name="keywords" content="stop, juego, palabras, multijugador, online, offline, español" />
+  
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#dc2626" />
+  <meta name="background-color" content="#dc2626" />
+  <meta name="display" content="standalone" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="STOP Game" />
+  
+  <!-- iOS Splash Screens -->
+  <link rel="apple-touch-icon" href="/favicon.svg" />
+  <link rel="apple-touch-startup-image" href="/favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="STOP Game - Juego de Palabras" />
+  <meta property="og:description" content="Juega STOP con amigos. Multijugador online y modo offline disponible." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/favicon.svg" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="STOP Game" />
+  <meta name="twitter:description" content="Juego de palabras multijugador" />
+  
+  <!-- Touch and Mobile Optimizations -->
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.jpg" />
+  
+  <style>
+    /* Optimizaciones móviles críticas */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    
+    input, textarea {
+      -webkit-user-select: text;
+      user-select: text;
+    }
+    
+    body {
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
+      touch-action: manipulation;
+    }
+    
+    /* PWA Loading Screen */
+    .pwa-loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: system-ui, -apple-system, sans-serif;
+      z-index: 9999;
+    }
+    
+    .pwa-loading.hidden {
+      display: none;
+    }
+    
+    .logo-spinner {
+      width: 80px;
+      height: 80px;
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- PWA Loading Screen -->
+  <div id="pwa-loading" class="pwa-loading">
+    <div class="logo-spinner"></div>
+    <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">STOP Game</h1>
+    <p style="opacity: 0.8;">Cargando...</p>
+  </div>
+
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+  
+  <!-- Service Worker Registration -->
+  <script>
+    // Registrar Service Worker para PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('SW registered: ', registration);
+          })
+          .catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+    
+    // Ocultar loading screen cuando la app esté lista
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loading = document.getElementById('pwa-loading');
+        if (loading) {
+          loading.classList.add('hidden');
+        }
+      }, 1000);
+    });
+    
+    // Prevenir zoom con gestos
+    document.addEventListener('gesturestart', function (e) {
+      e.preventDefault();
+    });
+    
+    document.addEventListener('gesturechange', function (e) {
+      e.preventDefault();
+    });
+    
+    document.addEventListener('gestureend', function (e) {
+      e.preventDefault();
+    });
+  </script>
+</body>
+
+</html>
