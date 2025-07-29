@@ -29,64 +29,28 @@ const SelectTrigger = React.forwardRef<
       <ChevronDown className="h-4 w-4 opacity-50" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
-<<<<<<< HEAD
-))
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
-=======
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
->>>>>>> 8405a82 (Actualización completa del juego STOP con nuevas funcionalidades)
 
 const SelectScrollUpButton = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.ScrollUpButton>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>
 >(({ className, ...props }, ref) => (
-<<<<<<< HEAD
-  <SelectPrimitive.ScrollUpButton
-    ref={ref}
-    className={cn(
-      "flex cursor-default items-center justify-center py-1",
-      className
-    )}
-    {...props}
-  >
-    <ChevronUp className="h-4 w-4" />
-  </SelectPrimitive.ScrollUpButton>
-))
-SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName
-=======
   <SelectPrimitive.ScrollUpButton ref={ref} className={cn('flex cursor-default items-center justify-center py-1', className)} {...props}>
     <ChevronUp className="h-4 w-4" />
   </SelectPrimitive.ScrollUpButton>
 ));
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
->>>>>>> 8405a82 (Actualización completa del juego STOP con nuevas funcionalidades)
 
 const SelectScrollDownButton = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.ScrollDownButton>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>
 >(({ className, ...props }, ref) => (
-<<<<<<< HEAD
-  <SelectPrimitive.ScrollDownButton
-    ref={ref}
-    className={cn(
-      "flex cursor-default items-center justify-center py-1",
-      className
-    )}
-    {...props}
-  >
-    <ChevronDown className="h-4 w-4" />
-  </SelectPrimitive.ScrollDownButton>
-))
-SelectScrollDownButton.displayName =
-  SelectPrimitive.ScrollDownButton.displayName
-=======
   <SelectPrimitive.ScrollDownButton ref={ref} className={cn('flex cursor-default items-center justify-center py-1', className)} {...props}>
     <ChevronDown className="h-4 w-4" />
   </SelectPrimitive.ScrollDownButton>
 ));
 SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
->>>>>>> 8405a82 (Actualización completa del juego STOP con nuevas funcionalidades)
 
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
