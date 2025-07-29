@@ -5,7 +5,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  base: '/Stop/', // Ruta base para GitHub Pages
+  base: '/', // Ruta base para Netlify
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
