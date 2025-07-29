@@ -12,24 +12,27 @@ import { AuthProvider } from './lib/auth';
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <BrowserRouter basename="/Stop">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/categories" element={<GameCategories />} />
-            <Route path="/play" element={<GamePlay />} />
-            <Route path="/private" element={<PrivateRoom />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </AuthProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  console.log('App component loaded');
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <BrowserRouter basename="/Stop">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/categories" element={<GameCategories />} />
+              <Route path="/play" element={<GamePlay />} />
+              <Route path="/private" element={<PrivateRoom />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
