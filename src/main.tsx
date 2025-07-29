@@ -4,4 +4,10 @@ import './index.css';
 
 console.log('App is starting...');
 console.log('Rendering App');
-createRoot(document.getElementById('root')!).render(<App />);
+console.log("Iniciando aplicación...");
+createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+console.log("Aplicación montada");
