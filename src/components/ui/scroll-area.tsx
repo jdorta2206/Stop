@@ -21,20 +21,12 @@ const ScrollArea = React.forwardRef<
     <ScrollAreaPrimitive.Corner />
   </ScrollAreaPrimitive.Root>
 ))
-ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName
-
-));
 ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName;
->>>>>>> 8405a82 (Actualización completa del juego STOP con nuevas funcionalidades)
 
 const ScrollBar = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>
-<<<<<<< HEAD
 >(({ className, orientation = "vertical", ...props }, ref) => (
-=======
->(({ className, orientation = 'vertical', ...props }, ref) => (
->>>>>>> 8405a82 (Actualización completa del juego STOP con nuevas funcionalidades)
   <ScrollAreaPrimitive.ScrollAreaScrollbar
     ref={ref}
     orientation={orientation}
